@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rsync \
     g++ \
     git \
-    vim
+    vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

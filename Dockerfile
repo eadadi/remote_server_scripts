@@ -22,5 +22,6 @@ RUN pip install --no-cache-dir gymnasium[all] tqdm matplotlib tensorboard ipytho
 RUN ipython profile create
 RUN python -m icat setup
 
-# Entrypoing
-CMD ["/bin/bash"]
+# Entrypoint
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

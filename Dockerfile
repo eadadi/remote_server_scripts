@@ -5,6 +5,7 @@ FROM pytorch/pytorch:2.7.1-cuda11.8-cudnn9-runtime
 # Install additional Linux software
 RUN apt-get update && apt-get install -y --no-install-recommends \
     rsync \
+    g++ \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

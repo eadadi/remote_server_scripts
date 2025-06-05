@@ -1,0 +1,3 @@
+
+rsync -avzPC --exclude='__pycache__/' -e 'ssh -p 15773' . root@213.173.107.137:~/project
+

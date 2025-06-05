@@ -6,6 +6,8 @@ FROM pytorch/pytorch:2.7.1-cuda11.8-cudnn9-runtime
 RUN apt-get update && apt-get install -y --no-install-recommends \
     rsync \
     g++ \
+    git \
+    vim
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +19,13 @@ COPY ./.bashrc /root/.bashrc
 
 # Install Python dependencies
 RUN pip install --no-cache-dir swig 
-RUN pip install --no-cache-dir gymnasium[all] tqdm matplotlib tensorboard ipython-icat
+RUN pip install --no-cache-dir \
+    gymnasium[all] \
+    tqdm \
+    matplotlib \
+    tensorboarda \
+    ipython-icat
+
 
 RUN ipython profile create
 RUN python -m icat setup

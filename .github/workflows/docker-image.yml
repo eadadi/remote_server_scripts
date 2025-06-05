@@ -29,4 +29,4 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          tags: "${{ vars.DOCKER_USER }}/docker-build-cloud-demo:latest"
+          tags: "${{ vars.DOCKER_USER }}/remote_gpu_flow:latest"

@@ -23,7 +23,7 @@ RUN pip install --no-cache-dir \
     gymnasium[all] \
     tqdm \
     matplotlib \
-    tensorboarda \
+    tensorboard \
     ipython-icat
 
 

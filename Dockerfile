@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Create and switch to a new user (add to sudo group)
 RUN useradd -ms /bin/bash user
-USER user
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+USER user
 
 # Copy the current directory contents into the container at /workspace
 COPY ./.bashrc ~/.bashrc

@@ -49,7 +49,13 @@ RUN mkdir -p ~/miniconda3 && \
 
 RUN ipython profile create && python -m icat setup
 
-RUN git clone https://github.com/eadadi/remote_server_scripts && cd remote_server_scripts && ./dynamic_remote_setup.sh
+USER root
+RUN git clone https://github.com/eadadi/remote_server_scripts && \
+    cd remote_server_scripts && \
+    ./dynamic_remote_setup.sh && \
+    cd .. && \
+    rm -rf remote_server_scripts
+USER user
 
 # setup ssh
 COPY start.sh /start.sh

@@ -49,6 +49,8 @@ RUN ipython profile create && python -m icat setup
 
 # setup ssh
 COPY start.sh /start.sh
+USER root
 RUN chmod +x /start.sh
 RUN /start.sh
+USER user
 CMD ["tail", "-f", "/dev/null"]

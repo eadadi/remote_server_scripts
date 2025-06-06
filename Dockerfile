@@ -7,6 +7,17 @@ USER user
 # Copy the current directory contents into the container at /workspace
 COPY ./.bashrc /root/.bashrc
 
+# Install additional Linux software
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    rsync \
+    g++ \
+    git \
+    vim \
+    ssh \
+    wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 #  Install Miniconda
 RUN mkdir -p ~/miniconda3 && \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh && \
@@ -22,16 +33,6 @@ RUN conda create -n dev_env python=3.11 -y && conda activate dev_env
 RUN apt-get update && apt-get install -y \
     python3 python3-pip wget curl \
     && pip install torch==2.7.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-
-# Install additional Linux software
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    rsync \
-    g++ \
-    git \
-    vim \
-    ssh \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 RUN pip install --no-cache-dir swig 

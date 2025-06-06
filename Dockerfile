@@ -33,12 +33,12 @@ RUN export PATH=~/miniconda3/bin:$PATH && conda install python=3.11
 # Set the default shell to bash for future RUN commands
 SHELL ["/bin/bash", "-c"]
 
-# Install PyTorch
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+# Install PyTorch on conda
+RUN . ~/.bashrc && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Install Python dependencies
-RUN pip install --no-cache-dir swig 
-RUN pip install --no-cache-dir \
+RUN . ~/.bashrc && pip install --no-cache-dir swig 
+RUN . ~/.bashrc && pip install --no-cache-dir \
     gymnasium[all] \
     tqdm \
     einops \

@@ -51,5 +51,3 @@ echo "Pod Started"
 setup_ssh
 
 echo "Start script(s) finished, pod is ready to use."
-
-sleep infinity

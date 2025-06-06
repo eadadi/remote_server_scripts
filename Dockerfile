@@ -1,6 +1,6 @@
 # Use the official PyTorch image with CUDA support
 # Check the PyTorch documentation for the latest available tags at https://hub.docker.com/r/pytorch/pytorch/tags
-FROM pytorch/pytorch:2.7.1-cuda11.8-cudnn9-devel
+FROM pytorch/pytorch:2.7.1-cuda11.8-cudnn9-runtime
 
 # Install additional Linux software
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -36,4 +36,5 @@ RUN ipython profile create && python -m icat setup
 # setup ssh
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
-CMD ["/start.sh"]
+RUN /start.sh
+CMD ["tail", "-f", "/dev/null"]

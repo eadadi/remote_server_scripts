@@ -29,16 +29,17 @@ RUN mkdir -p ~/miniconda3 && \
     source ~/miniconda3/bin/activate && \
     export PATH=~/miniconda3/bin:$PATH && \
     conda init --all
+ENV PATH=~/miniconda3/bin:$PATH
 
 # Install python on conda
-RUN export PATH=~/miniconda3/bin:$PATH && conda create -n devel python=3.11
+RUN conda create -n devel python=3.11
 
 # Install PyTorch on conda
-RUN export PATH=~/miniconda3/bin:$PATH && conda activate devel && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN conda init && conda activate devel && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Install Python dependencies
-RUN export PATH=~/miniconda3/bin:$PATH && conda activate devel && pip install --no-cache-dir swig 
-RUN export PATH=~/miniconda3/bin:$PATH && conda activate devel && pip install --no-cache-dir \
+RUN conda activate devel && pip install --no-cache-dir swig 
+RUN conda activate devel && pip install --no-cache-dir \
     gymnasium[all] \
     tqdm \
     einops \

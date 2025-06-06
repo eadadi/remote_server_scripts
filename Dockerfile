@@ -33,8 +33,7 @@ RUN pip install --no-cache-dir \
 
 RUN ipython profile create && python -m icat setup
 
-# Entrypoint
-COPY entrypoint.sh /entrypoint.sh
-#chmod
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+# setup ssh
+COPY start_ssh.sh /start_ssh.sh
+RUN chmod +x /start_ssh.sh && ./start_ssh.sh
+CMD ["tail", "-f", "/dev/null"]

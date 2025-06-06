@@ -1,5 +1,4 @@
 FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
-SHELL ["/bin/bash", "-c"]
 
 # Install additional Linux software
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -19,6 +18,9 @@ USER user
 # Copy the current directory contents into the container at /workspace
 COPY ./.bashrc ~/.bashrc
 
+# Use bash shell for future RUN commands
+SHELL ["/bin/bash", "-c"]
+
 #  Install Miniconda
 RUN mkdir -p ~/miniconda3 && \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh && \
@@ -31,15 +33,12 @@ RUN mkdir -p ~/miniconda3 && \
 # Install python on conda
 RUN export PATH=~/miniconda3/bin:$PATH && conda create -n devel python=3.11
 
-# Set the default shell to bash for future RUN commands
-RUN echo "PATH=~/miniconda3/bin:$PATH" >> ~/.bashrc
-
 # Install PyTorch on conda
-RUN conda activate devel && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN export PATH=~/miniconda3/bin:$PATH && conda activate devel && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Install Python dependencies
-RUN conda activate devel && pip install --no-cache-dir swig 
-RUN conda activate devel && pip install --no-cache-dir \
+RUN export PATH=~/miniconda3/bin:$PATH && conda activate devel && pip install --no-cache-dir swig 
+RUN export PATH=~/miniconda3/bin:$PATH && conda activate devel && pip install --no-cache-dir \
     gymnasium[all] \
     tqdm \
     einops \

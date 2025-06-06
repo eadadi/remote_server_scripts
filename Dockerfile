@@ -35,5 +35,6 @@ RUN ipython profile create && python -m icat setup
 
 # Entrypoint
 COPY entrypoint.sh /entrypoint.sh
-CHMOD +x /entrypoint.sh
+#chmod
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

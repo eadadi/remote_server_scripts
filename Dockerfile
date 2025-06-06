@@ -31,20 +31,18 @@ RUN mkdir -p ~/miniconda3 && \
     export PATH=~/miniconda3/bin:$PATH && \
     conda init --all && \
     conda create -n devel python=3.11  && \
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-
-# Install Python dependencies
-RUN conda activate devel && pip install --no-cache-dir swig 
-RUN conda activate devel && pip install --no-cache-dir \
-    gymnasium[all] \
-    tqdm \
-    einops \
-    matplotlib \
-    tensorboard \
-    transformers \
-    diffusers \
-    ipython-icat \
-    numpy
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+    pip install --no-cache-dir swig  && \
+    pip install --no-cache-dir \
+      gymnasium[all] \
+      tqdm \
+      einops \
+      matplotlib \
+      tensorboard \
+      transformers \
+      diffusers \
+      ipython-icat \
+      numpy
 
 
 RUN ipython profile create && python -m icat setup

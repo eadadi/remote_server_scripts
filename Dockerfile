@@ -24,6 +24,7 @@ RUN mkdir -p ~/miniconda3 && \
     bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 && \
     rm ~/miniconda3/miniconda.sh && \
     bash -c "source ~/miniconda3/bin/activate" && \
+    export PATH=~/miniconda3/bin:$PATH && \
     conda init --all
 
 # Install conda environment with python 3.11

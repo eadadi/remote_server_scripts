@@ -22,34 +22,40 @@ COPY ./.bashrc ~/.bashrc
 SHELL ["/bin/bash", "-c"]
 
 #  Install Miniconda
+# Install dependencies and Miniconda
+ENV CONDA_DIR=/opt/conda
+ENV PATH=$CONDA_DIR/bin:$PATH
+
 RUN mkdir -p ~/miniconda3 && \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh && \
-    bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 && \
+    bash ~/miniconda3/miniconda.sh -b -u -p $CONDA_DIR && \
     rm ~/miniconda3/miniconda.sh && \
-    source ~/miniconda3/bin/activate && \
-    export PATH=~/miniconda3/bin:$PATH && \
-    conda init --all
-ENV PATH=~/miniconda3/bin:$PATH
+    ln -s $CONDA_DIR/bin/conda /usr/local/bin/conda
 
 # Install python on conda
-RUN conda create -n devel python=3.11 -y
-SHELL ["conda", "run", "-n", "devel", "/bin/bash", "-c"]
+RUN conda create -n devel python=3.11
 
 # Install PyTorch on conda
-RUN conda init && conda activate devel && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN source $CONDA_DIR/etc/profile.d/conda.sh && \
+    conda activate devel && \
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Install Python dependencies
-RUN conda activate devel && pip install --no-cache-dir swig 
-RUN conda activate devel && pip install --no-cache-dir \
-    gymnasium[all] \
-    tqdm \
-    einops \
-    matplotlib \
-    tensorboard \
-    transformers \
-    diffusers \
-    ipython-icat \
-    numpy
+RUN source $CONDA_DIR/etc/profile.d/conda.sh && \
+    conda activate devel && \
+    pip install --no-cache-dir swig 
+RUN source $CONDA_DIR/etc/profile.d/conda.sh && \
+    conda activate devel && \
+    pip install --no-cache-dir \
+      gymnasium[all] \
+      tqdm \
+      einops \
+      matplotlib \
+      tensorboard \
+      transformers \
+      diffusers \
+      ipython-icat \
+      numpy
 
 
 RUN ipython profile create && python -m icat setup

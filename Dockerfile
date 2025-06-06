@@ -35,5 +35,5 @@ RUN ipython profile create && python -m icat setup
 
 # setup ssh
 COPY start_ssh.sh /start_ssh.sh
-RUN chmod +x /start_ssh.sh && ./start_ssh.sh
+RUN chmod +x /start_ssh.sh && /start_ssh.sh
 CMD ["tail", "-f", "/dev/null"]

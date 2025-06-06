@@ -19,6 +19,6 @@ while read -r directory events filename; do
     --exclude="__pycache__/" \
     --filter=":- $local_path/$exclude_file" \
     -e 'ssh -p 22' \
-    . egwmlbjzo9wobe-644119ac@ssh.runpod.io:~/workspace
+    . 84yodyhsodeawx-644119af:~/workspace
 done
 

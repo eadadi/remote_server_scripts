@@ -1,6 +1,9 @@
-# Use the official PyTorch image with CUDA support
-# Check the PyTorch documentation for the latest available tags at https://hub.docker.com/r/pytorch/pytorch/tags
-FROM pytorch/pytorch:2.7.1-cuda11.8-cudnn9-runtime
+FROM nvidia/cuda:11.8.0-cudnn9-devel-ubuntu22.04
+
+RUN apt-get update && apt-get install -y \
+    python3 python3-pip wget curl \
+    && pip install torch==2.7.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
 
 # Install additional Linux software
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -28,7 +31,8 @@ RUN pip install --no-cache-dir \
     tensorboard \
     transformers \
     diffusers \
-    ipython-icat
+    ipython-icat \
+    numpy
 
 
 RUN ipython profile create && python -m icat setup

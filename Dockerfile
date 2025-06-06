@@ -32,7 +32,8 @@ RUN mkdir -p ~/miniconda3 && \
 ENV PATH=~/miniconda3/bin:$PATH
 
 # Install python on conda
-RUN conda create -n devel python=3.11
+RUN conda create -n devel python=3.11 -y
+SHELL ["conda", "run", "-n", "devel", "/bin/bash", "-c"]
 
 # Install PyTorch on conda
 RUN conda init && conda activate devel && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118

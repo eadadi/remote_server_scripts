@@ -24,11 +24,11 @@ RUN mkdir -p ~/miniconda3 && \
     bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 && \
     rm ~/miniconda3/miniconda.sh && \
     bash -c "source ~/miniconda3/bin/activate" && \
-    EXPORT PATH=~/miniconda3/bin:$PATH && \
+    export PATH=~/miniconda3/bin:$PATH && \
     conda init --all
 
 # Install python on conda
-RUN EXPORT PATH=~/miniconda3/bin:$PATH && conda install python=3.11
+RUN export PATH=~/miniconda3/bin:$PATH && conda install python=3.11
 
 # Install PyTorch
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118

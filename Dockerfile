@@ -1,6 +1,6 @@
 # Use the official PyTorch image with CUDA support
 # Check the PyTorch documentation for the latest available tags at https://hub.docker.com/r/pytorch/pytorch/tags
-FROM pytorch/pytorch:2.7.1-cuda12.6-cudnn9-runtime
+FROM pytorch/pytorch:2.7.1-cuda11.8-cudnn9-devel
 
 # Install additional Linux software
 RUN apt-get update && apt-get install -y --no-install-recommends \

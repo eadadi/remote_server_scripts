@@ -1,12 +1,5 @@
 FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
 
-# Create and switch to a new user
-RUN useradd -ms /bin/bash user
-USER user
-
-# Copy the current directory contents into the container at /workspace
-COPY ./.bashrc /root/.bashrc
-
 # Install additional Linux software
 RUN apt-get update && apt-get install -y --no-install-recommends \
     rsync \
@@ -17,6 +10,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Create and switch to a new user
+RUN useradd -ms /bin/bash user
+USER user
+
+# Copy the current directory contents into the container at /workspace
+COPY ./.bashrc /root/.bashrc
 
 #  Install Miniconda
 RUN mkdir -p ~/miniconda3 && \
@@ -30,9 +30,7 @@ RUN mkdir -p ~/miniconda3 && \
 RUN conda create -n dev_env python=3.11 -y && conda activate dev_env
 
 # Install PyTorch
-RUN apt-get update && apt-get install -y \
-    python3 python3-pip wget curl \
-    && pip install torch==2.7.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Install Python dependencies
 RUN pip install --no-cache-dir swig 

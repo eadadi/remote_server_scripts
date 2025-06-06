@@ -34,4 +34,6 @@ RUN pip install --no-cache-dir \
 RUN ipython profile create && python -m icat setup
 
 # Entrypoint
-CMD ["tail", "-f", "/dev/null"]
+COPY entrypoint.sh /entrypoint.sh
+CHMOD +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

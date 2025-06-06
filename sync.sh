@@ -18,7 +18,7 @@ while read -r directory events filename; do
   rsync -avzPC \
     --exclude="__pycache__/" \
     --filter=":- $local_path/$exclude_file" \
-    -e 'ssh -p 17013' \
-    . root@213.173.108.217:~/project
+    -e 'ssh -p 22' \
+    . egwmlbjzo9wobe-644119ac@ssh.runpod.io:~/workspace
 done
 

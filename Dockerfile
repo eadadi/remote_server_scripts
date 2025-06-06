@@ -19,16 +19,18 @@ USER user
 COPY ./.bashrc /root/.bashrc
 
 #  Install Miniconda
+# Set environment variable to use Conda (used only after installation)
+ENV PATH="~/miniconda3/bin:${PATH}"
+
 RUN mkdir -p ~/miniconda3 && \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh && \
     bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3 && \
     rm ~/miniconda3/miniconda.sh && \
     bash -c "source ~/miniconda3/bin/activate" && \
-    export PATH=~/miniconda3/bin:$PATH && \
     conda init --all
 
-# Install conda environment with python 3.11
-RUN conda create -n dev_env python=3.11 -y && conda activate dev_env
+# Install python on conda
+RUN conda install python=3.10
 
 # Install PyTorch
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118

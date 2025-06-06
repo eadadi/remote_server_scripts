@@ -31,8 +31,7 @@ RUN pip install --no-cache-dir \
     ipython-icat
 
 
-RUN ipython profile create
-RUN python -m icat setup
+RUN ipython profile create && python -m icat setup
 
 # Entrypoint
 CMD ["tail", "-f", "/dev/null"]

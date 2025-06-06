@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
+FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
 
 # Install additional Linux software
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -32,7 +32,9 @@ RUN mkdir -p ~/miniconda3 && \
     conda init --all && \
     conda create -n devel python=3.11  && \
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+    pip install swig && \
     pip install --no-cache-dir \
+      gymnasium[all] \
       tqdm \
       einops \
       matplotlib \

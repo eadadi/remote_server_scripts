@@ -33,11 +33,7 @@ RUN pip install --no-cache-dir \
 
 RUN ipython profile create && python -m icat setup
 
-# set environment variable as in the Pod (take PUBLIC_KEY)
-ENV PUBLIC_KEY=$PUBLIC_KEY
-RUN echo "export PUBLIC_KEY=$PUBLIC_KEY"
-
 # setup ssh
-COPY start_ssh.sh /start_ssh.sh
-RUN chmod +x /start_ssh.sh && /start_ssh.sh
-CMD ["tail", "-f", "/dev/null"]
+COPY start.sh /start.sh
+RUN chmod +x /start_ssh.sh
+CMD ["/start.sh"]

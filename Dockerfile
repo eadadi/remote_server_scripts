@@ -33,7 +33,7 @@ RUN mkdir -p ~/miniconda3 && \
     export PATH=~/miniconda3/bin:$PATH && \
     conda init --all && \
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
-    pip install swig && \
+    pip install swig pipx && \
     pip install --no-cache-dir \
       gymnasium[all] \
       tqdm \
@@ -43,10 +43,13 @@ RUN mkdir -p ~/miniconda3 && \
       transformers \
       diffusers \
       ipython-icat \
-      numpy
+      numpy \
+      standard-imghdr
 
 
 RUN ipython profile create && python -m icat setup
+
+RUN git clone https://github.com/eadadi/remote_server_scripts && cd remote_server_scripts && ./dynamic_remote_setup.sh
 
 # setup ssh
 COPY start.sh /start.sh

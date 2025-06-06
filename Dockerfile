@@ -8,12 +8,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     vim \
     ssh \
     wget \
+    sudo \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Create and switch to a new user
+# Create and switch to a new user (add to sudo group)
 RUN useradd -ms /bin/bash user
 USER user
+RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Copy the current directory contents into the container at /workspace
 COPY ./.bashrc ~/.bashrc
@@ -30,7 +32,6 @@ RUN mkdir -p ~/miniconda3 && \
     source ~/miniconda3/bin/activate && \
     export PATH=~/miniconda3/bin:$PATH && \
     conda init --all && \
-    conda create -n devel python=3.11  && \
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
     pip install swig && \
     pip install --no-cache-dir \

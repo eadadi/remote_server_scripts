@@ -28,17 +28,17 @@ RUN mkdir -p ~/miniconda3 && \
     conda init --all
 
 # Install python on conda
-RUN export PATH=~/miniconda3/bin:$PATH && conda install python=3.11
+RUN export PATH=~/miniconda3/bin:$PATH && conda create -n devel python=3.11
 
 # Set the default shell to bash for future RUN commands
 SHELL ["/bin/bash", "-c"]
 
 # Install PyTorch on conda
-RUN . ~/.bashrc && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN conda activate devel && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Install Python dependencies
-RUN . ~/.bashrc && pip install --no-cache-dir swig 
-RUN . ~/.bashrc && pip install --no-cache-dir \
+RUN conda activate devel && pip install --no-cache-dir swig 
+RUN conda activate devel && pip install --no-cache-dir \
     gymnasium[all] \
     tqdm \
     einops \

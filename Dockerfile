@@ -31,6 +31,7 @@ RUN mkdir -p ~/miniconda3 && \
 RUN export PATH=~/miniconda3/bin:$PATH && conda create -n devel python=3.11
 
 # Set the default shell to bash for future RUN commands
+RUN echo "PATH=~/miniconda3/bin:$PATH" >> ~/.bashrc
 SHELL ["/bin/bash", "-c"]
 
 # Install PyTorch on conda

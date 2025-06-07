@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# The purpose of the file is to make small remote server setups in a dynamic way.
-# This is meant to avoid the need to rebuild the docker image for every change.
-# Therefore, simple and smaller changes are done in this file.
+# The purpose of the file is to make additional remote server setups
 
 # Adjust ipython to defaultly load_ext tensorboard and
 # tensorboard --logdir $TB_RUNS_PATH --host $TB_HOST --port $TB_PORT

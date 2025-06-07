@@ -32,6 +32,8 @@ fi
 
 # Do kitty ssh Param on the "kernel" terminal
 if [ ! -z "$SSH_COMMAND" ]; then
+  # Modify the SSH_COMMAND to also include port forwarding 8080:localhost:8080
+  SSH_COMMAND+=" -L 8080:localhost:8080"
 kitty @ send-text --match title:kernel "kitten $SSH_COMMAND\n"
 fi
 

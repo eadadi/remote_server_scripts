@@ -9,6 +9,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ssh \
     wget \
     sudo \
+    psmic \
+    curl \
+    unzip \
+    ffmpeg
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -44,7 +48,9 @@ RUN mkdir -p ~/miniconda3 && \
       diffusers \
       ipython-icat \
       numpy \
-      standard-imghdr
+      standard-imghdr \
+      accelerate \
+      datasets
 
 
 WORKDIR /workspace

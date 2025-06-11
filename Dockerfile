@@ -9,10 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ssh \
     wget \
     sudo \
-    psmic \
     curl \
     unzip \
-    ffmpeg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

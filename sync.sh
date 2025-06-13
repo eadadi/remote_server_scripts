@@ -14,6 +14,8 @@ if [ -z "$param" ]; then
   exit 1
 fi
 ip=$(echo "$param" | awk '{print $2}')
+# Replace 'root' with 'user' in the variable 'param' and assign the result to 'ip'
+ip=$(echo "$ip" | sed 's/root/user/')
 port=$(echo "$param" | awk '{print $4}')
 echo "IP: $ip"
 echo "Port: $port"
